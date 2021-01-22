@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
 # Create your views here.
 from .form import CreateUserForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -32,15 +33,15 @@ def register(request):
     context = {'form':form}
     return render(request , 'register.html', context)
 
-
+@login_required(login_url='login')
 def Home(request):
     return render(request,'index.html')
 
-def logout(request):
+def logout1(request):
     logout(request)
-    redirect('login')
+    return  redirect('login')
 
 
-
+@login_required(login_url='login')
 def table(request):
     return render(request,'table.html')
