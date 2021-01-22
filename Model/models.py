@@ -35,5 +35,6 @@ class Student(models.Model):
 
     # - EPS Quizes.
 
+
     def __str__(self):
         return self.name
