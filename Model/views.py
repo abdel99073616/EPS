@@ -18,6 +18,10 @@ from sklearn import tree
 from sklearn import svm
 from sklearn.svm import SVC
 # Create your views here.
+Data = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
+X1 = Data.drop(["Departments"], axis=1)
+X = X1
+y = Data["Departments"]
 
 def loginpage(request):
     if request.method == "POST":
@@ -149,25 +153,18 @@ def WECode(request):
     return render(request , 'from1.html' , context)
 
 def DecisionTree(request):
-    pima = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
-    X1 = pima.drop(["Departments"], axis=1)
-    X = X1
-    y = pima["Departments"]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/249,random_state=1)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3,random_state=1)
     clf = DecisionTreeClassifier()
     clf = clf.fit(X_train, y_train)
     E_text = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast2.csv')
     y_pred = clf.predict(E_text)
 
     context= {'data':y_pred}
-    return render(request , 'index.html' , context)
+    return render(request , 'from1.html' , context)
 
 
 def SVM(request):
-    pima = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
-    X1 = pima.drop(["Departments"], axis=1)
-    X = X1
-    y = pima["Departments"]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, shuffle=True)
 
@@ -176,4 +173,4 @@ def SVM(request):
     E_text = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast2.csv')
     y_pred = svm.predict(E_text)
     context= {'data':y_pred}
-    return render(request , 'index.html' , context)
+    return render(request , 'from1.html' , context)
