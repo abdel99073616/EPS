@@ -16,7 +16,7 @@ class Student(models.Model):
     Calculus = models.PositiveIntegerField(null=True)
     DataBase = models.PositiveIntegerField(null=True)
     LinerAlgebra = models.PositiveIntegerField(null=True)
-    intro_to_CS = models.PositiveIntegerField(null=True)
+    Intro_to_CS = models.PositiveIntegerField(null=True)
     Intro_to_IS = models.PositiveIntegerField(null=True)
     Discrete_Math = models.PositiveIntegerField(null=True)
     ObjectOriented = models.PositiveIntegerField(null=True)
