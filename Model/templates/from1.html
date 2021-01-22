@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <label>Calculus</label><input type="number" name="Calculus" class="form-control">
+        <br><label>DataBase</label><input type="number" name="DataBase" class="form-control">
+        <br><label>Liner_Algebra</label><input type="number" name="Liner Algebra" class="form-control">
+        <br><label>Intro_CS</label><input type="number" name="intro to computer sceince" class="form-control">
+        <br><label>intro_IS</label><input type="number" name="intro to IS" class="form-control">
+        <br><label>Discrete</label><input type="number" name="Discrete" class="form-control">
+        <br><label>Object_Oriented</label><input type="number" name="Object Oriented" class="form-control">
+        <br><label>Statistics</label><input type="number" name="Statistics" class="form-control">
+        <br><label>Computer_Programing</label><input type="number" name="Computer Programing" class="form-control">
+        <br><label>Defferental_Equations</label><input type="number" name="Defferental Equation" class="form-control">
+        <br><label>Operations_Researsh</label><input type="number" name="Operations Researsh" class="form-control">
+        <br><label>Data_Strucure</label><input type="number" name="Data Strucure" class="form-control">
+        <br><label>File_Processing</label><input type="number" name="File Processing" class="form-control">
+        <br><label>Advansed_Math</label><input type="number" name="Advansed Mathematics" class="form-control">
+        <br><label>Physic</label><input type="number" name="Physic" class="form-control">
+        <br><label>Stotastic</label><input type="number" name="Stotastic" class="form-control">
+        <br><label>Multimedia</label><input type="number" name="Multimedia" class="form-control">
+        <br><label>information_thoery</label><input type="number" name="information theory" class="form-control">
+        <br><label>system_analysis</label><input type="number" name="system analysis and design" class="form-control">
+        <br><label>Management</label><input type="number" name="Management" class="form-control">
+        <br><label>Problem_Solving</label><input type="number" name="ProblemSolving" class="form-control">
+        <br><button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

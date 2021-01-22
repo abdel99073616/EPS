@@ -35,3 +35,12 @@ def register(request):
 
 def Home(request):
     return render(request,'index.html')
+
+def logout(request):
+    logout(request)
+    redirect('login')
+
+
+
+def table(request):
+    return render(request,'table.html')
