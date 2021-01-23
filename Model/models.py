@@ -35,6 +35,3 @@ class Student(models.Model):
 
     # - EPS Quizes.
 
-
-    def __str__(self):
-        return self.user.first_name + ' ' + self.user.last_name
