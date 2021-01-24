@@ -31,9 +31,9 @@ class Student(models.Model):
     Multimedia = models.PositiveIntegerField(null=True)
     InformationTheory = models.PositiveIntegerField(null=True)
     SystemAnalysis_And_Design = models.PositiveIntegerField(null=True)
-    Department_WE = models.CharField(max_length=5,null =True)
-    Department_DS = models.CharField(max_length=5,null =True)
-    Department_SVM = models.CharField(max_length=5,null =True)
+    Department_WE = models.CharField(max_length=2,null =True)
+    Department_DS = models.CharField(max_length=2,null =True)
+    Department_SVM = models.CharField(max_length=2,null =True)
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
