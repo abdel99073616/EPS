@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # - EPS Quizes.
 
 class Student(models.Model):
-    user = models.OneToOneField(User, null=True ,blank = True , on_delete=models.CASCADE)
+    user = models.OneToOneField(User  , on_delete=models.CASCADE)
     #name = models.CharField(max_length=100 , null=True)
     #email = models.CharField(max_length=200 , null= True)
 
@@ -31,7 +31,12 @@ class Student(models.Model):
     Multimedia = models.PositiveIntegerField(null=True)
     InformationTheory = models.PositiveIntegerField(null=True)
     SystemAnalysis_And_Design = models.PositiveIntegerField(null=True)
-    Department = models.CharField(max_length=10,null =True)
+    Department_WE = models.CharField(max_length=5,null =True)
+    Department_DS = models.CharField(max_length=5,null =True)
+    Department_SVM = models.CharField(max_length=5,null =True)
+
+    def __str__(self):
+        return self.user.first_name + ' ' + self.user.last_name
 
     # - EPS Quizes.
 

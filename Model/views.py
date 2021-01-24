@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.contrib import auth
-from .models import Student , User
+from numpy.core.fromnumeric import cumprod
+from .models import Student
+from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-# Create your views here.
 from .form import CreateUserForm , StudentObj
 from django.contrib.auth.decorators import login_required
+from django.forms import inlineformset_factory
+from .models import *
+
 import numpy as np
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 from matplotlib import pyplot as plt
@@ -60,21 +63,20 @@ def logout1(request):
 
 
 @login_required(login_url='login')
-
-@login_required(login_url='login')
-def Form(request):
-    form = StudentObj()
-    if request.method == "POST":
-        form = StudentObj(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return redirect('wecode')
-    context = {'forms': form}
+def Form(request,pk):
+    student = Student.objects.get(user = pk)
+    formset = StudentObj(instance= student)
+    if request.method == 'POST':
+        formset = StudentObj(request.POST, instance=student)
+        if formset.is_valid():
+            formset.save()
+            return redirect('home')
+    context = {'forms': formset}
     return render(request, 'from1.html', context)
 
 @login_required(login_url='login')
-def WECode(request ,pk):
-    student = Student.objects.get(pk=id)
+def WECode(request,pk):
+    student = Student.objects.get(user=pk)
     CS_Mat = np.array([
         student.Calculus > 99,
         student.DataBase < 90,
@@ -96,24 +98,24 @@ def WECode(request ,pk):
         student.SystemAnalysis_And_Design   < 99,
         ])
     IS_Mat = np.array([
-     student.Calculus                < 99 ,
-     student.DataBase               >90 ,
-     student.LinerAlgebra           <90 ,
-     student.Intro_to_CS             < 99 ,
-     student.Intro_to_IS             > 90 ,
-     student.Discrete_Math              < 99 ,
-     student.ObjectOriented               <99 ,
-     student.Statistics              < 99,
-     student.ProgramingLanguage              <99 ,
-     student.DifferentialEquation              <99 ,
-     student.DataStructure              > 102 ,
-     student.FileProcessing             < 99 ,
-     student.AdvancedMathematics             > 99 ,
-     student.Physics               < 99,
-     student.Stochastic             < 99 ,
-     student.Multimedia             > 99,
-     student.InformationTheory              <99,
-     student.SystemAnalysis_And_Design             >99
+     student.Calculus < 99 ,
+     student.DataBase      >90 ,
+     student.LinerAlgebra  <90 ,
+     student.Intro_to_CS    < 99 ,
+     student.Intro_to_IS    > 90 ,
+     student.Discrete_Math     < 99 ,
+     student.ObjectOriented   <99 ,
+     student.Statistics      < 99,
+     student.ProgramingLanguage  <99 ,
+     student.DifferentialEquation  <99 ,
+     student.DataStructure    > 102,
+     student.FileProcessing   < 99,
+     student.AdvancedMathematics > 99,
+     student.Physics    < 99,
+     student.Stochastic  < 99,
+     student.Multimedia  > 99,
+     student.InformationTheory < 99,
+     student.SystemAnalysis_And_Design > 99
     ])
     Department = ""
     s2 = sum(CS_Mat.astype(int))
@@ -122,12 +124,13 @@ def WECode(request ,pk):
         Department = "CS"
     else:
         Department = "IS"
-    DepartmentStudent = Student(Department=Department)
+
+    DepartmentStudent = Student(Department_WE=Department)
 
     DepartmentStudent.save()
 
     redirect('home')
-    return render(request , 'from1.html' )
+    return render(request)
 
 
 @login_required(login_url='login')
