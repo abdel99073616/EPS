@@ -74,7 +74,6 @@ def Form(request,pk):
     context = {'forms': formset}
     return render(request, 'from1.html', context)
 
-@login_required(login_url='login')
 def WECode(request,pk):
     student = Student.objects.get(user=pk)
     CS_Mat = np.array([
@@ -124,15 +123,12 @@ def WECode(request,pk):
         Department = "CS"
     else:
         Department = "IS"
-
-    DepartmentStudent = Student(Department_WE=Department)
-
-    DepartmentStudent.save()
-
+    formset = StudentObj(instance=student)
+    formset = StudentObj(request.POST, instance=student)
+    formset.save()
     redirect('home')
-    return render(request)
-
-
+    context = {}
+    return render(request , 'Dep.html',context)
 @login_required(login_url='login')
 def DecisionTree(request):
 

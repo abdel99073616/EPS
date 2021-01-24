@@ -24,7 +24,7 @@ class CreateUserForm(UserCreationForm):
 class StudentObj(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['user','Calculus','DataBase','LinerAlgebra','Intro_to_CS','Intro_to_IS',
+        fields =['Calculus','DataBase','LinerAlgebra','Intro_to_CS','Intro_to_IS',
                   'Discrete_Math','ObjectOriented','Statistics','ProgramingLanguage',
                   'DifferentialEquation','DataStructure','FileProcessing','AdvancedMathematics',
                   'Physics','Stochastic','Multimedia','InformationTheory','SystemAnalysis_And_Design'
