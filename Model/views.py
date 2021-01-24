@@ -55,7 +55,10 @@ def register(request):
 
 @login_required(login_url='login')
 def Home(request):
-    return render(request,'index.html')
+    pk = request.user.id
+    student = Student.objects.get(user = pk)
+    context = {'student' : student}
+    return render(request,'index.html',context)
 
 def logout1(request):
     logout(request)
@@ -63,18 +66,22 @@ def logout1(request):
 
 
 @login_required(login_url='login')
-def Form(request,pk):
+def Form(request):
+    pk = request.user.id
     student = Student.objects.get(user = pk)
     formset = StudentObj(instance= student)
     if request.method == 'POST':
         formset = StudentObj(request.POST, instance=student)
         if formset.is_valid():
             formset.save()
+            WECode(request)
             return redirect('home')
+
     context = {'forms': formset}
     return render(request, 'from1.html', context)
 
-def WECode(request,pk):
+def WECode(request):
+    pk = request.user.id
     student = Student.objects.get(user=pk)
     CS_Mat = np.array([
         student.Calculus > 99,
@@ -116,19 +123,19 @@ def WECode(request,pk):
      student.InformationTheory < 99,
      student.SystemAnalysis_And_Design > 99
     ])
-    Department = ""
     s2 = sum(CS_Mat.astype(int))
     s3 = sum(IS_Mat.astype(int))
     if (s2 == max(s2, s3)):
-        Department = "CS"
+        student.Department_WE = "CS"
+        print("CS")
     else:
-        Department = "IS"
-    formset = StudentObj(instance=student)
-    formset = StudentObj(request.POST, instance=student)
-    formset.save()
-    redirect('home')
-    context = {}
-    return render(request , 'Dep.html',context)
+        student.Department_WE = "IS"
+    form = StudentObj(instance=student)
+    form = StudentObj(request.POST, instance=student)
+    if form.is_valid():
+        form.save()
+    return redirect('home')
+
 @login_required(login_url='login')
 def DecisionTree(request):
 
