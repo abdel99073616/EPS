@@ -134,17 +134,19 @@ def WECode(request):
     form = StudentObj(request.POST, instance=student)
     if form.is_valid():
         form.save()
-    return redirect('home')
+    return request
 
 @login_required(login_url='login')
 def DecisionTree(request):
-
+    pk = request.user.id
+    student = Student.objects.get(user=pk)
+    student_dataframe = pd.DataFrame.from_records(student)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3,random_state=1)
     clf = DecisionTreeClassifier()
     clf = clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
-    Dep_pred = clf.predict()
-    return render(request , 'from1.html' )
+    Dep_pred = clf.predict(student_dataframe)
+    return request
 
 
 @login_required(login_url='login')
@@ -154,4 +156,4 @@ def SVM(request):
     svm = SVC(kernel="linear", C=0.025, random_state=101)
     svm.fit(X_train, y_train)
     y_pred = svm.predict(X_test)
-    return render(request , 'from1.html' )
+    return request
