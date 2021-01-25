@@ -23,6 +23,7 @@ class Student(models.Model):
     Statistics = models.PositiveIntegerField(null=True)
     ProgramingLanguage = models.PositiveIntegerField(null=True)
     DifferentialEquation = models.PositiveIntegerField(null=True)
+    Operations_Researsh = models.PositiveIntegerField(null=True)
     DataStructure = models.PositiveIntegerField(null=True)
     FileProcessing = models.PositiveIntegerField(null=True)
     AdvancedMathematics = models.PositiveIntegerField(null=True)

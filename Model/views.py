@@ -22,12 +22,6 @@ from sklearn import tree
 from sklearn import svm
 from sklearn.svm import SVC
 
-# Create your views here.
-
-Data = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
-X1 = Data.drop(["Departments"], axis=1)
-X = X1
-y = Data["Departments"]
 
 def loginpage(request):
     if request.method == "POST":
@@ -75,6 +69,8 @@ def Form(request):
         if formset.is_valid():
             formset.save()
             WECode(request)
+            DecisionTree(request)
+            SVM(request)
             return redirect('home')
 
     context = {'forms': formset}
@@ -94,12 +90,13 @@ def WECode(request):
         student.Statistics  > 99,
         student.ProgramingLanguage  > 99,
         student.DifferentialEquation   > 99,
-        student.DataStructure   > 102,
+        student.Operations_Researsh >102 ,
+        student.DataStructure   < 99 ,
         student.FileProcessing   < 99,
-        student.AdvancedMathematics   < 99,
+        student.AdvancedMathematics   > 99,
         student.Physics   > 99,
-        student.Stochastic  < 99,
-        student.Multimedia   > 99,
+        student.Stochastic  > 99,
+        student.Multimedia   < 99,
         student.InformationTheory  < 99,
         student.SystemAnalysis_And_Design   < 99,
         ])
@@ -114,20 +111,20 @@ def WECode(request):
      student.Statistics      < 99,
      student.ProgramingLanguage  <99 ,
      student.DifferentialEquation  <99 ,
-     student.DataStructure    > 102,
-     student.FileProcessing   < 99,
-     student.AdvancedMathematics > 99,
+     student.Operations_Researsh <102 ,
+     student.DataStructure    < 99,
+     student.FileProcessing   > 99,
+     student.AdvancedMathematics < 99,
      student.Physics    < 99,
      student.Stochastic  < 99,
      student.Multimedia  > 99,
-     student.InformationTheory < 99,
+     student.InformationTheory > 99,
      student.SystemAnalysis_And_Design > 99
     ])
     s2 = sum(CS_Mat.astype(int))
     s3 = sum(IS_Mat.astype(int))
     if (s2 == max(s2, s3)):
         student.Department_WE = "CS"
-        print("CS")
     else:
         student.Department_WE = "IS"
     form = StudentObj(instance=student)
@@ -136,24 +133,46 @@ def WECode(request):
         form.save()
     return request
 
+Data = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
+X = Data.drop(["Departments"], axis=1)
+y = Data["Departments"]
+
+
 @login_required(login_url='login')
 def DecisionTree(request):
     pk = request.user.id
     student = Student.objects.get(user=pk)
-    student_dataframe = pd.DataFrame.from_records(student)
+    df = pd.DataFrame(list(Student.objects.all().values()))
+    df = df.loc[df['user_id'] == pk]
+    df = df.drop(["user_id" , "id" , "Department_WE", "Department_DS","Department_SVM"], axis=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3,random_state=1)
     clf = DecisionTreeClassifier()
     clf = clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
-    Dep_pred = clf.predict(student_dataframe)
+    Dep_pred = clf.predict(df)
+    student.Department_DS = list(Dep_pred)[0]
+    form = StudentObj(instance=student)
+    form = StudentObj(request.POST, instance=student)
+    if form.is_valid():
+        form.save()
     return request
 
 
 @login_required(login_url='login')
 def SVM(request):
-
+    pk = request.user.id
+    student = Student.objects.get(user=pk)
+    df = pd.DataFrame(list(Student.objects.all().values()))
+    df = df.loc[df['user_id'] == pk]
+    df = df.drop(["user_id", "id", "Department_WE", "Department_DS", "Department_SVM"], axis=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, shuffle=True)
     svm = SVC(kernel="linear", C=0.025, random_state=101)
     svm.fit(X_train, y_train)
     y_pred = svm.predict(X_test)
+    Dep_pred = svm.predict(df)
+    student.Department_SVM = list(Dep_pred)[0]
+    form = StudentObj(instance=student)
+    form = StudentObj(request.POST, instance=student)
+    if form.is_valid():
+        form.save()
     return request
