@@ -12,6 +12,189 @@
     <link rel="stylesheet" href="{% static '/fonts/fontawesome-all.min.css' %}">
     <link rel="stylesheet" href="{% static '/fonts/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static '/fonts/fontawesome5-overrides.min.css' %}">
+    <style>
+			body {
+				background-color: #fafafa;
+				font-size: 16px;
+				line-height: 1.5;
+			}
+
+			h1,h2,h3,h4,h5,h6 {
+				font-weight: 400;
+			}
+
+			#header {
+				border-bottom: 5px solid #37474F;
+				color: #37474F;
+				margin-bottom: 1.5rem;
+				padding: 1rem 0;
+			}
+
+			#revenue-tag {
+				font-weight: inherit !important;
+				border-radius: 0px !important;
+			}
+
+			.card {
+				border: 0rem;
+				border-radius: 0rem;
+			}
+
+			.card-header {
+				background-color: #37474F;
+				border-radius: 0 !important;
+				color:	white;
+				margin-bottom: 0;
+				padding:	1rem;
+			}
+
+			.card-block {
+				border: 1px solid #cccccc;
+			}
+
+			.shadow {
+				box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+										0 1px 18px 0 rgba(0, 0, 0, 0.12),
+										0 3px 5px -1px rgba(0, 0, 0, 0.2);
+			}
+
+			#revenue-column-chart, #products-revenue-pie-chart, #orders-spline-chart {
+				height: 300px;
+				width: 100%;
+			}
+		</style>
+    <!-- Scripts -->
+		<script src="{% static '/assets/jquery/jquery-3.1.0.min.js' %}"></script>
+		<script src="{% static '/assets/tether/tether.min.js' %}"></script>
+		<script src="{% static '/assets/bootstrap/bootstrap4-alpha3.min.js' %}"></script>
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+			$(function () {
+
+
+				var productsRevenuePieChart_1 = new CanvasJS.Chart("products-revenue-pie-chart-1", {
+					animationEnabled: true,
+					theme: "theme2",
+					legend: {
+						fontSize: 14
+					},
+					toolTip: {
+						borderThickness: 0,
+						content: "<span style='\"'color: {color};'\"'>{name}</span>: ${y} (#percent%)",
+						cornerRadius: 5
+					},
+					data: [
+						{
+							indexLabelFontColor: "#676464",
+							indexLabelFontSize: 10,
+							legendMarkerType: "blue",
+							legendText: "{indexLabel}",
+							showInLegend: true,
+							startAngle:  90,
+							type: "pie",
+							dataPoints: [
+								{  y: 80 , name:"A", indexLabel: "50%", legendText: "A", exploded: true },
+								{  y: 20 , name:"B", indexLabel: "50%", legendText: "B" }
+							]
+						}
+					]
+				});
+
+				productsRevenuePieChart_1.render();
+
+			var productsRevenuePieChart_2 = new CanvasJS.Chart("products-revenue-pie-chart-2", {
+					animationEnabled: true,
+					theme: "theme2",
+					legend: {
+						fontSize: 14
+					},
+					toolTip: {
+						borderThickness: 0,
+						content: "<span style='\"'color: {color};'\"'>{name}</span>: ${y} (#percent%)",
+						cornerRadius: 0
+					},
+					data: [
+						{
+							indexLabelFontColor: "#676464",
+							indexLabelFontSize: 14,
+							legendMarkerType: "blue",
+							legendText: "{indexLabel}",
+							showInLegend: true,
+							startAngle:  90,
+							type: "pie",
+							dataPoints: [
+								{  y: 80 , name:"A", indexLabel: "50%", legendText: "A", exploded: true },
+								{  y: 20 , name:"B", indexLabel: "50%", legendText: "B" }
+							]
+						}
+					]
+				});
+
+				productsRevenuePieChart_2.render();
+
+			var productsRevenuePieChart_3 = new CanvasJS.Chart("products-revenue-pie-chart-3", {
+					animationEnabled: true,
+					theme: "theme2",
+					legend: {
+						fontSize: 14
+					},
+					toolTip: {
+						borderThickness: 0,
+						content: "<span style='\"'color: {color};'\"'>{name}</span>: ${y} (#percent%)",
+						cornerRadius: 0
+					},
+					data: [
+						{
+							indexLabelFontColor: "#676464",
+							indexLabelFontSize: 14,
+							legendMarkerType: "blue",
+							legendText: "{indexLabel}",
+							showInLegend: true,
+							startAngle:  90,
+							type: "pie",
+							dataPoints: [
+								{  y: 80 , name:"A", indexLabel: "50%", legendText: "A", exploded: true },
+								{  y: 20 , name:"B", indexLabel: "50%", legendText: "B" }
+							]
+						}
+					]
+				});
+
+				productsRevenuePieChart_3.render();
+
+			var productsRevenuePieChart_4 = new CanvasJS.Chart("products-revenue-pie-chart-4", {
+					animationEnabled: true,
+					theme: "theme2",
+					legend: {
+						fontSize: 14
+					},
+					toolTip: {
+						borderThickness: 0,
+						content: "<span style='\"'color: {color};'\"'>{name}</span>: ${y} (#percent%)",
+						cornerRadius: 0
+					},
+					data: [
+						{
+							indexLabelFontColor: "#676464",
+							indexLabelFontSize: 14,
+							legendMarkerType: "blue",
+							legendText: "{indexLabel}",
+							showInLegend: true,
+							startAngle:  90,
+							type: "pie",
+							dataPoints: [
+								{  y: {{student.DataBase}} , name:"A", indexLabel: "{{student.DataBase}}", legendText: "A", exploded: true },
+								{  y: 20 , name:"B", indexLabel: "50%", legendText: "B" }
+							]
+						}
+					]
+				});
+
+				productsRevenuePieChart_4.render();
+
+			});
+		</script>
+
 </head>
 
 <body id="page-top">

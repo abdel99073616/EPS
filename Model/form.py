@@ -13,12 +13,12 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username' , 'email' ,'first_name','last_name', 'password1' , 'password2']
         widgets = {
-            'username': TextInput(attrs={'placeholder': 'User Name','class': 'form-control',}),
-            'email': EmailInput(attrs={'placeholder': 'Email','class': 'form-control',}),
-            'first_name': TextInput(attrs={'placeholder': 'First Name','class': 'form-control',}),
-            'last_name': TextInput(attrs={'placeholder': 'Last Name','class': 'form-control',}),
-            'password1': PasswordInput(),
-            'password2': PasswordInput(),
+            'username': TextInput(attrs={'class': 'form-control',}),
+            'email': EmailInput(attrs={'class': 'form-control',}),
+            'first_name': TextInput(attrs={'class': 'form-control',}),
+            'last_name': TextInput(attrs={'class': 'form-control',}),
+            'password1': PasswordInput(attrs={'class': 'form-control',}),
+            'password2': PasswordInput(attrs={'class': 'form-control',}),
         }
 
 class StudentObj(forms.ModelForm):

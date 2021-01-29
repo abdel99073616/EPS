@@ -10,6 +10,8 @@ from .form import CreateUserForm , StudentObj
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from .models import *
+from .decorators import unauthenticated_user , allowed_users , admin_only
+
 
 import numpy as np
 import pandas as pd
@@ -23,6 +25,13 @@ from sklearn import svm
 from sklearn.svm import SVC
 
 
+
+
+def frist_page(request):
+    return render(request , 'FristPage.html')
+
+
+@unauthenticated_user
 def loginpage(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -30,13 +39,13 @@ def loginpage(request):
         user = authenticate(request , username=username , password=password)
         if user is not None:
             login(request , user)
-            return redirect('home')
+            return redirect("admin_Home")
         else:
             messages.info(request , 'Username Or Password is invalid')
     context = {}
     return render(request , 'login.html' , context)
 
-
+@unauthenticated_user
 def register(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -48,11 +57,17 @@ def register(request):
     return render(request , 'register.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def Home(request):
     pk = request.user.id
     student = Student.objects.get(user = pk)
     context = {'student' : student}
     return render(request,'index.html',context)
+
+@login_required(login_url='login')
+@admin_only
+def Admin_Home(request):
+    return render(request,'HOME.html')
 
 def logout1(request):
     logout(request)
@@ -60,6 +75,7 @@ def logout1(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def Form(request):
     pk = request.user.id
     student = Student.objects.get(user = pk)
@@ -71,7 +87,7 @@ def Form(request):
             WECode(request)
             DecisionTree(request)
             SVM(request)
-            return redirect('home')
+            return redirect('user_home')
 
     context = {'forms': formset}
     return render(request, 'from1.html', context)

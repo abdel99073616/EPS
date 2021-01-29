@@ -6,11 +6,9 @@ from django.contrib.auth.models import User
 # - Historical Education Models.
 # - EPS Quizes.
 
-class Student(models.Model):
-    user = models.OneToOneField(User  , on_delete=models.CASCADE)
-    #name = models.CharField(max_length=100 , null=True)
-    #email = models.CharField(max_length=200 , null= True)
 
+class Student (models.Model):
+    user = models.OneToOneField(User  , on_delete=models.CASCADE)
     # - Historical Education Models.
 
     Calculus = models.PositiveIntegerField(null=True)
@@ -38,6 +36,10 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
+
+#class Accuracy(models.Model):
+
+
 
     # - EPS Quizes.
 
