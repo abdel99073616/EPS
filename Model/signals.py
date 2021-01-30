@@ -8,8 +8,11 @@ from django.contrib.auth.models import Group
 
 def create_Student(sender,instance , created , **kwargs):
     if created :
-        Student.objects.create(
-            user=instance,
-        )
+        group = Group.objects.get(name='student')
+        instance.groups.add(group)
+        Student.objects.create(user=instance)
+        Math.objects.create(userMath=instance)
+        Academic.objects.create(userAcademic=instance)
+        Programing.objects.create(userPrograming=instance)
 post_save.connect(create_Student , sender= User)
 

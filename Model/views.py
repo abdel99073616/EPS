@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from .form import CreateUserForm , StudentObj
+from .form import *
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from .models import *
@@ -91,6 +91,54 @@ def Form(request):
 
     context = {'forms': formset}
     return render(request, 'from1.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def MathForm(request):
+    pk = request.user.id
+    student = Math.objects.get(userMath = pk)
+    formset = MathObj(instance= student)
+    if request.method == 'POST':
+        formset = MathObj(request.POST, instance=student)
+        if formset.is_valid():
+            formset.save()
+            return redirect('user_home')
+
+    context = {'forms': formset}
+    return render(request, 'MathForm.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def AcademicForm(request):
+    pk = request.user.id
+    student = Academic.objects.get(userAcademic = pk)
+    formset = AcademicObj(instance= student)
+    if request.method == 'POST':
+        formset = AcademicObj(request.POST, instance=student)
+        if formset.is_valid():
+            formset.save()
+            return redirect('user_home')
+
+    context = {'forms': formset}
+    return render(request, 'AcademicForm.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def ProgramingForm(request):
+    pk = request.user.id
+    student = Programing.objects.get(userPrograming = pk)
+    formset = ProgramingAcademic(instance= student)
+    if request.method == 'POST':
+        formset = ProgramingAcademic(request.POST, instance=student)
+        if formset.is_valid():
+            formset.save()
+            return redirect('user_home')
+
+    context = {'forms': formset}
+    return render(request, 'ProgramingForm.html', context)
+
+
 
 def WECode(request):
     pk = request.user.id
