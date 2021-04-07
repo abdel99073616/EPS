@@ -139,7 +139,6 @@ def ProgramingForm(request):
     return render(request, 'ProgramingForm.html', context)
 
 
-
 def WECode(request):
     pk = request.user.id
     student = Student.objects.get(user=pk)
