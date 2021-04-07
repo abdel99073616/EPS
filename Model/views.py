@@ -30,7 +30,6 @@ from sklearn.svm import SVC
 def frist_page(request):
     return render(request , 'FristPage.html')
 
-
 @unauthenticated_user
 def loginpage(request):
     if request.method == "POST":
