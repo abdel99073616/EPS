@@ -77,7 +77,6 @@ entrypoints==0.3
 et-xmlfile==1.0.1
 ExifRead==2.3.2
 expiringdict==1.1.4
-faraday-client==1.0.0
 faraday-plugins==1.2
 faradaysec==3.12
 feedparser==5.2.1
