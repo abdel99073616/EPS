@@ -20,5 +20,5 @@ django-cors-headers = "*"
 
 
 [requires]
-python_version = "2.7"
+python3_version = "3.9"
 
