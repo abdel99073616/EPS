@@ -11,8 +11,5 @@ def create_Student(sender,instance , created , **kwargs):
         group = Group.objects.get(name='student')
         instance.groups.add(group)
         Student.objects.create(user=instance)
-        Math.objects.create(userMath=instance)
-        Academic.objects.create(userAcademic=instance)
-        Programing.objects.create(userPrograming=instance)
 post_save.connect(create_Student , sender= User)
 

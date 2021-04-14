@@ -26,23 +26,3 @@ class StudentObj(forms.ModelForm):
         model = Student
         fields = "__all__"
         exclude = ['user',"Department_WE","Department_DS","Department_SVM"]
-
-class MathObj(forms.ModelForm):
-    class Meta:
-        model = Math
-        fields = "__all__"
-        exclude = ['userMath']
-
-
-class AcademicObj(forms.ModelForm):
-    class Meta:
-        model = Academic
-        fields = "__all__"
-        exclude = ['userAcademic']
-
-
-class ProgramingAcademic(forms.ModelForm):
-    class Meta:
-        model = Programing
-        fields = "__all__"
-        exclude = ['userPrograming']
