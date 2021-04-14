@@ -14,6 +14,6 @@ gunicorn = "*"
 psycopg2 = "==2.7.7"
 django-heroku = "*"
 django-cors-headers = "*"
-
+requirements = "*"
 [requires]
 python_version = "3.7"
