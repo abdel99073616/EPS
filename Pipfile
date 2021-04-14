@@ -12,8 +12,12 @@ pyjwt = "*"
 drf-yasg = "*"
 gunicorn = "*"
 psycopg2 = "==2.7.7"
+numpy = "*"
+pandas = "*"
+scikit-learn = "*"
 django-heroku = "*"
 django-cors-headers = "*"
+
 
 [requires]
 python_version = "3.7"
