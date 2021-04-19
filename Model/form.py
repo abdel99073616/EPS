@@ -7,7 +7,6 @@ from django.forms.widgets import TextInput  , EmailInput , PasswordInput , Numbe
 from django.forms import inlineformset_factory
 
 
-
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -26,3 +25,4 @@ class StudentObj(forms.ModelForm):
         model = Student
         fields = "__all__"
         exclude = ['user',"Department_WE","Department_DS","Department_SVM"]
+

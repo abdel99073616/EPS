@@ -2,14 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# This Model will be split to two categories:
-# - Historical Education Models.
-# - EPS Quizes.
-
-
 class Student (models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User  , on_delete=models.CASCADE)
-    # - Historical Education Models.
 
     Calculus = models.PositiveIntegerField(null=True)
     DataBase = models.PositiveIntegerField(null=True)
@@ -36,3 +31,29 @@ class Student (models.Model):
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
+
+class Quiz(models.Model):
+    Kind = (
+        ('Programing', 'Programing'),
+        ('Data Structure', 'Data Structure'),
+        ('Linear Math', 'Linear Math'),
+        ('Advanced Math', 'Advanced Math'),
+    )
+    id = models.AutoField(primary_key=True)
+    Bady = models.TextField(max_length=5000,null=True)
+    Correct_Answer_letter = models.CharField(max_length=20,null=True)
+    User_Answer_letter = models.CharField(max_length=20,null=True)
+    Status = models.CharField(max_length=200 , null=True, choices=Kind)
+
+
+
+
+
+
+
+
+
+
+
+
+
