@@ -43,10 +43,10 @@ class Quiz(models.Model):
     Bady = models.TextField(max_length=5000,null=True)
     Correct_Answer_letter = models.CharField(max_length=20,null=True)
     User_Answer_letter = models.CharField(max_length=20,null=True)
-    Status = models.CharField(max_length=200 , null=True, choices=Kind)
+    kind = models.CharField(max_length=200 , null=True, choices=Kind)
 
-
-
+    def __str__(self):
+        return self.Bady
 
 
 

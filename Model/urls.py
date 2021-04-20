@@ -12,6 +12,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('logout/', logout1, name='logout'),
     path('form/',Form,name='Form'),
+    path('quiz1/',Quiz1,name='Quiz1'),
     path('reset_password/', auth_views.PasswordResetView.as_view() , name = 'password_reset'),
     path('reset_password_send/', auth_views.PasswordResetDoneView.as_view() ,name = 'password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view() , name = 'password_reset_confirm'),

@@ -192,3 +192,9 @@ def SVM(request):
     if form.is_valid():
         form.save()
     return request
+
+@login_required(login_url='login')
+def Quiz1 (request):
+    quiz1 = Quiz.objects.filter(kind = 'Programing')
+    context = {'quiz1':quiz1}
+    return render(request, 'Quiz1.html', context)
