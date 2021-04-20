@@ -196,5 +196,6 @@ def SVM(request):
 @login_required(login_url='login')
 def Quiz1 (request):
     quiz1 = Quiz.objects.filter(kind = 'Programing')
-    context = {'quiz1':quiz1}
+    quiz2 = Quiz.objects.filter(kind='Linear Math')
+    context = {'quiz1':quiz1 , 'quiz2':quiz2}
     return render(request, 'Quiz1.html', context)
