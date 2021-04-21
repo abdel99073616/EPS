@@ -202,9 +202,14 @@ def Quiz1 (request):
 
 class QuizListVeiw(ListView):
     model = Quiz_2
-    template_name = 'quizes/quiz.html'
+    template_name = 'quizes/main.html'
 
-def quiz_veiw(request , pk):
+def quiz_veiw(request):
+    quiz = Quiz_2.objects.all()
+    context = {'obj':quiz}
+    return render (request, 'quizes/main.html', context)
+
+def quizpk_veiw(request , pk):
     quiz = Quiz_2.objects.get(pk = pk)
     context = {'obj':quiz}
     return render (request, 'quizes/quiz.html', context)

@@ -19,9 +19,8 @@ urlpatterns = [
 
     ################### Quiz ##############################
 
-
-    path('list/', QuizListVeiw.as_view() , name='main-view'),
-    path('list/<pk>/' ,quiz_veiw , name='quiz_veiw'),
+    path('list/' ,quiz_veiw , name='quiz_veiw'),
+    path('list/<pk>/' ,quizpk_veiw , name='quizpk_veiw'),
 
 
 
