@@ -11,6 +11,8 @@ from django.forms import inlineformset_factory
 from .models import *
 from .decorators import unauthenticated_user , allowed_users , admin_only
 from django.views.generic import ListView
+from django.http import JsonResponse
+
 
 import numpy as np
 import pandas as pd
@@ -213,3 +215,29 @@ def quizpk_veiw(request , pk):
     quiz = Quiz_2.objects.get(pk = pk)
     context = {'obj':quiz}
     return render (request, 'quizes/quiz.html', context)
+
+def quiz_data_view(request , pk):
+    quiz = Quiz_2.objects.get(pk =pk)
+    questions = []
+    for q in quiz.get_questions():
+        answers = []
+        for a in q.get_answer():
+            answers.append(a.text)
+        questions.append({str(q):answers})
+    return JsonResponse({
+        'data' : questions,
+        'time' : quiz.time
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
