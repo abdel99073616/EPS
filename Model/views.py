@@ -204,7 +204,7 @@ def Quiz1 (request):
 
 class QuizListVeiw(ListView):
     model = Quiz_2
-    template_name = 'quizes/main.html'
+    template_name = 'quizes/quiz.html'
 
 def quiz_veiw(request):
     quiz = Quiz_2.objects.all()

@@ -21,7 +21,7 @@ urlpatterns = [
 
     path('list/' ,quiz_veiw , name='quiz_veiw'),
     path('list/<pk>/' ,quizpk_veiw , name='quizpk_veiw'),
-    path('list/<pk>/data' ,quiz_data_view , name='quizpk_veiw'),
+    path('list/<pk>/data' ,quiz_data_view , name='quiz_data_view'),
 
 
 
