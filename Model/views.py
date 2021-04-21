@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib import auth
 from numpy.core.fromnumeric import cumprod
-from .models import Student
 from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate , login , logout
@@ -11,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from .models import *
 from .decorators import unauthenticated_user , allowed_users , admin_only
-
+from django.views.generic import ListView
 
 import numpy as np
 import pandas as pd
@@ -199,3 +198,13 @@ def Quiz1 (request):
     quiz2 = Quiz.objects.filter(kind='Linear Math')
     context = {'quiz1':quiz1 , 'quiz2':quiz2}
     return render(request, 'Quiz1.html', context)
+
+
+class QuizListVeiw(ListView):
+    model = Quiz_2
+    template_name = 'quizes/quiz.html'
+
+def quiz_veiw(request , pk):
+    quiz = Quiz_2.objects.get(pk = pk)
+    context = {'obj':quiz}
+    return render (request, 'quizes/quiz.html', context)

@@ -12,11 +12,19 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('logout/', logout1, name='logout'),
     path('form/',Form,name='Form'),
-    path('quiz1/',Quiz1,name='Quiz1'),
     path('reset_password/', auth_views.PasswordResetView.as_view() , name = 'password_reset'),
     path('reset_password_send/', auth_views.PasswordResetDoneView.as_view() ,name = 'password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view() , name = 'password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view() , name = 'password_reset_complete'),
+
+    ################### Quiz ##############################
+
+
+    path('list/', QuizListVeiw.as_view() , name='main-view'),
+    path('list/<pk>/' ,quiz_veiw , name='quiz_veiw'),
+
+
+
 ]
 
 
