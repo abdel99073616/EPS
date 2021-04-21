@@ -1,4 +1,4 @@
-console.log('sfsfGSRhsrfgb')
+console.log('Welcome to Egypt')
 const url = window.location.href
 
 console.log(url)
@@ -12,19 +12,29 @@ $.ajax({
     url : `${url}data`,
     success: function (response){
         console.log(response)
-        data = response.data
+        const data = response.data
         data.forEach(el => {
-            for (const [question,answers] of Object.entries(el)){
-               console.log(question)
-               console.log(answers)
+            for (const [question,answers] of Object.entries(el)) {
+                console.log(question)
+                console.log(answers)
                 quizBox.innerHTML += `
                     <hr>
                     <div class="mb-2">
                         <b>${question}</b>
                     </div>
                 `
+
+                answers.forEach(answer => {
+                    quizBox.innerHTML += `
+                    <hr>
+                    <div class="mb-2">
+                        <input type="radio" class="ans" id="${question} - ${answer}" name="${question} value="${answer}">
+                        <label for="${question}">${answer}</label>
+                    </div>
+                `
+                })
             }
-            });
+        });
     },
     error:function(error){
         console.log(error)

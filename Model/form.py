@@ -25,9 +25,3 @@ class StudentObj(forms.ModelForm):
         model = Student
         fields = "__all__"
         exclude = ['user',"Department_WE","Department_DS","Department_SVM"]
-
-class Quiz1Obj(forms.ModelForm):
-    class Meta:
-        model = Quiz
-        fields = ['Bady']
-

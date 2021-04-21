@@ -195,27 +195,23 @@ def SVM(request):
     return request
 
 @login_required(login_url='login')
-def Quiz1 (request):
-    quiz1 = Quiz.objects.filter(kind = 'Programing')
-    quiz2 = Quiz.objects.filter(kind='Linear Math')
-    context = {'quiz1':quiz1 , 'quiz2':quiz2}
-    return render(request, 'Quiz1.html', context)
-
-
 class QuizListVeiw(ListView):
     model = Quiz_2
     template_name = 'quizes/quiz.html'
 
+@login_required(login_url='login')
 def quiz_veiw(request):
     quiz = Quiz_2.objects.all()
     context = {'obj':quiz}
     return render (request, 'quizes/main.html', context)
 
+@login_required(login_url='login')
 def quizpk_veiw(request , pk):
     quiz = Quiz_2.objects.get(pk = pk)
     context = {'obj':quiz}
     return render (request, 'quizes/quiz.html', context)
 
+@login_required(login_url='login')
 def quiz_data_view(request , pk):
     quiz = Quiz_2.objects.get(pk =pk)
     questions = []

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from numpy import random
 
 class Student (models.Model):
     id = models.AutoField(primary_key=True)
@@ -32,21 +32,6 @@ class Student (models.Model):
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
 
-class Quiz(models.Model):
-    Kind = (
-        ('Programing', 'Programing'),
-        ('Data Structure', 'Data Structure'),
-        ('Linear Math', 'Linear Math'),
-        ('Advanced Math', 'Advanced Math'),
-    )
-    id = models.AutoField(primary_key=True)
-    Bady = models.TextField(max_length=5000,null=True)
-    Correct_Answer_letter = models.CharField(max_length=20,null=True)
-    User_Answer_letter = models.CharField(max_length=20,null=True,blank=True)
-    kind = models.CharField(max_length=200 , null=True, choices=Kind)
-
-    def __str__(self):
-        return self.Bady
 
 class Quiz_2(models.Model):
     DIFF_CHOICE = (
@@ -65,7 +50,9 @@ class Quiz_2(models.Model):
         return f"{self.name} - {self.topic} "
 
     def get_questions(self):
-        return self.question_set.all()[:self.number_of_questions]
+        questions = list(self.question_set.all())
+        random.shuffle(questions)
+        return questions[:self.number_of_questions]
 
 
 class Question(models.Model):
