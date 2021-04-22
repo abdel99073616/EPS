@@ -195,23 +195,27 @@ def SVM(request):
     return request
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 class QuizListVeiw(ListView):
     model = Quiz_2
     template_name = 'quizes/quiz.html'
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def quiz_veiw(request):
     quiz = Quiz_2.objects.all()
     context = {'obj':quiz}
     return render (request, 'quizes/main.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def quizpk_veiw(request , pk):
     quiz = Quiz_2.objects.get(pk = pk)
     context = {'obj':quiz}
     return render (request, 'quizes/quiz.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def quiz_data_view(request , pk):
     quiz = Quiz_2.objects.get(pk =pk)
     questions = []
@@ -226,6 +230,7 @@ def quiz_data_view(request , pk):
     })
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
 def save_quiz_view(request , pk):
     #print(request.POST)
     if request.is_ajax():

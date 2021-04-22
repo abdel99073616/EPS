@@ -3,7 +3,8 @@ const url = window.location.href
 console.log(url)
 
 const  quizBox = document.getElementById('quiz-box')
-
+const  scoreBox = document.getElementById('score-box')
+const  resultBox = document.getElementById('result-box')
 let data
 
 $.ajax({
@@ -66,6 +67,8 @@ const sendData = () =>{
             const results = response.results
             console.log(results)
             quizForm.classList.add('not-visible')
+            scoreBox.innerHTML = `${response.passed ? 'Congratulations !' : 'Ops ..'} Your result id ${response.score.toFixed(2)}`
+
 
             results.forEach(res =>{
                 const resDiv = document.createElement("div")
@@ -93,8 +96,7 @@ const sendData = () =>{
 
                     }
                 }
-                const body = document.getElementsByTagName('BODY')[0]
-                body.append(resDiv)
+                resultBox.append(resDiv)
             })
         },
         error:function(error){
