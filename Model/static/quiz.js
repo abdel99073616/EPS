@@ -28,7 +28,7 @@ $.ajax({
                     quizBox.innerHTML += `
                     <hr>
                     <div class="mb-2">
-                        <input type="radio" class="ans" id="${question} - ${answer}" name="${question} value="${answer}">
+                        <input type="radio" class="ans" id="${question} - ${answer}" name="${question}" value="${answer}">
                         <label for="${question}">${answer}</label>
                     </div>
                 `
@@ -40,3 +40,46 @@ $.ajax({
         console.log(error)
     }
 })
+
+
+const quizForm = document.getElementById('quiz-form')
+const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+
+
+const sendData = () =>{
+    const elements = [...document.getElementsByClassName('ans')]
+    const data = {}
+    data['csrfmiddlewaretoken'] = csrf[0].value
+    elements.forEach(el =>{
+        if (el.checked){
+            data[el.name] = el.value
+        }else{
+            if (!data[el.name]){
+                data[el.name] = null
+            }
+        }
+    })
+
+    $.ajax({
+        type:'POST',
+        url: `${url}sava/`,
+        data : data,
+        success : function(response){
+            console.log(response)
+        },
+        error:function(error){
+        console.log(error)
+    }
+    })
+}
+
+quizForm.addEventListener('submit', e => {
+    e.preventDefault()
+
+    sendData()
+} )
+
+
+
+

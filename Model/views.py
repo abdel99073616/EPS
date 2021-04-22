@@ -225,7 +225,53 @@ def quiz_data_view(request , pk):
         'time' : quiz.time
     })
 
+@login_required(login_url='login')
+def save_quiz_view(request , pk):
+    #print(request.POST)
+    if request.is_ajax():
+        questions = []
+        data = request.POST
+        data_ = dict(data.lists())
+        data_.pop('csrfmiddlewaretoken')
+        
+        for k in data_.keys():
+            print('keys:' , k)
+            question = Question.objects.get(text= k)
+            questions.append(question)
+        print(questions)
 
+        user = request.user
+        quiz = Quiz_2.objects.get(pk = pk)
+
+        score = 0
+        multiplier = 100/quiz.number_of_questions
+        results = []
+        correct_answer = None
+
+        for q in questions:
+            a_selected = request.POST.get(q.text)
+            print('selected:',a_selected)
+
+            if a_selected != "":
+                question_answers = Answer.objects.filter(question=q)
+                for a in question_answers:
+                    if a_selected == a.text:
+                        if a.correct:
+                            score+=1
+                            correct_answer = a.text
+                    else:
+                        if a.correct:
+                            correct_answer = a.text
+                results.append({str(q): {'correct_answer':correct_answer , 'answered':a_selected}})
+            else:
+                results.append({str(q): 'not answered' })
+                
+        score_ = score * multiplier
+        Result.objects.create(quiz=quiz , user=user , score= score_)
+        if score_ >= quiz.required_score_to_pass:
+            return JsonResponse({'Passed':True , 'score':score_ , 'results':results})
+        else:
+            return JsonResponse({'Passed': False, 'score': score_, 'results': results})
 
 
 
