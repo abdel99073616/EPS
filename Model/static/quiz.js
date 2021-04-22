@@ -1,4 +1,3 @@
-console.log('Welcome to Egypt')
 const url = window.location.href
 
 console.log(url)
@@ -15,8 +14,6 @@ $.ajax({
         const data = response.data
         data.forEach(el => {
             for (const [question,answers] of Object.entries(el)) {
-                console.log(question)
-                console.log(answers)
                 quizBox.innerHTML += `
                     <hr>
                     <div class="mb-2">
@@ -66,7 +63,39 @@ const sendData = () =>{
         url: `${url}sava/`,
         data : data,
         success : function(response){
-            console.log(response)
+            const results = response.results
+            console.log(results)
+            quizForm.classList.add('not-visible')
+
+            results.forEach(res =>{
+                const resDiv = document.createElement("div")
+                for(const [question,resp] of Object.entries(res)){
+                    resDiv.innerHTML += question
+                    const cls =['container','p-3','text-light','h3']
+                    resDiv.classList.add(...cls)
+
+
+                    if (resp== 'not answered'){
+                        resDiv.innerHTML += '- not answered'
+                        resDiv.classList.add('bg-danger')
+                    }else{
+                        const answer = resp['answered']
+                        const correct = resp['correct_answer']
+
+                        if (answer == correct){
+                            resDiv.innerHTML += ` answered: ${answer}`
+                            resDiv.classList.add('bg-success')
+                        }else{
+                            resDiv.innerHTML += `| correct answer: ${correct}`
+                            resDiv.innerHTML += `| answered: ${answer}`
+                            resDiv.classList.add('bg-danger')
+                        }
+
+                    }
+                }
+                const body = document.getElementsByTagName('BODY')[0]
+                body.append(resDiv)
+            })
         },
         error:function(error){
         console.log(error)
