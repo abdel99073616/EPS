@@ -1,64 +1,88 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="{% static '/fonts/fontawesome-all.min.css' %}">
-    <link rel="stylesheet" href="{% static '/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static '/fonts/fontawesome5-overrides.min.css' %}">
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static '/login/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/login/css/main.css' %}">
+<!--===============================================================================================-->
 </head>
+<body>
 
-<body class="bg-gradient-dark">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-12 col-xl-10">
-                <div class="card shadow-lg o-hidden border-0 my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-flex">
-                                <div class="flex-grow-1 bg-login-image" style="background-image: url({% static "img/1.jpeg" %});"></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h4 class="text-dark mb-4">Welcome Back!</h4>
-                                    </div>
-                                    <form class="user" action="" method="POST" >
-                                        {% csrf_token %}
-                                        <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="Username" placeholder="Enter Username Address..." name="username"></div>
-                                        <div class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Password" name="password"></div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1"><label class="form-check-label custom-control-label" for="formCheck-1">Remember Me</label></div>
-                                            </div>
-                                        </div><button class="btn btn-primary btn-block text-white btn-user" type="submit">Login</button>
-                                        <hr>
-                                    </form>
-                                    <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
-                                    <div class="text-center"><a class="small" href="{% url 'register' %}">Create an Account!</a></div>
-                                    {% for message in messages %}
-                                        <p id="messages">{{message}}</p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'img/back1.png'%});">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Account Login
+				</span>
+				<form class="login100-form validate-form p-b-33 p-t-5" method="POST">
+                        {% csrf_token %}
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input class="input100" type="text" name="username" placeholder="User name">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-32"><hr>
+
+						<button class="login100-form-btn">Login </button>
+                        <a class="login100-form-btn" href="{% url 'register' %}">Create an Account!</a>
+                        <button><a href="{% provider_login_url "google" %}" class="btn btn-danger btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a></button>
+
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="{% static '/js/jquery.min.js' %}"></script>
-    <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static '/js/chart.min.js' %}"></script>
-    <script src="{% static '/js/bs-init.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="{% static '/js/theme.js' %}"></script>
-</body>
+				</form>
 
+			</div>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static '/login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static '/login/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static '/login/js/main.js' %}"></script>
+
+</body>
 </html>

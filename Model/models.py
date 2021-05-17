@@ -25,7 +25,6 @@ class Student (models.Model):
     Multimedia = models.PositiveIntegerField(null=True)
     InformationTheory = models.PositiveIntegerField(null=True)
     SystemAnalysis_And_Design = models.PositiveIntegerField(null=True)
-    Department_WE = models.CharField(max_length=2,null =True , blank=True)
     Department_DS = models.CharField(max_length=2,null =True , blank=True)
     Department_SVM = models.CharField(max_length=2,null =True , blank=True)
 

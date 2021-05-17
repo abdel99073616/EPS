@@ -84,7 +84,6 @@ def Form(request):
         formset = StudentObj(request.POST, instance=student)
         if formset.is_valid():
             formset.save()
-            WECode(request)
             DecisionTree(request)
             SVM(request)
             return redirect('user_home')
@@ -92,67 +91,9 @@ def Form(request):
     context = {'forms': formset}
     return render(request, 'from1.html', context)
 
-
-def WECode(request):
-    pk = request.user.id
-    student = Student.objects.get(user=pk)
-    CS_Mat = np.array([
-        student.Calculus > 99,
-        student.DataBase < 90,
-        student.LinerAlgebra > 99,
-        student.Intro_to_CS  > 99,
-        student.Intro_to_IS  < 90,
-        student.Discrete_Math > 99,
-        student.ObjectOriented  > 99,
-        student.Statistics  > 99,
-        student.ProgramingLanguage  > 99,
-        student.DifferentialEquation   > 99,
-        student.Operations_Researsh >102 ,
-        student.DataStructure   < 99 ,
-        student.FileProcessing   < 99,
-        student.AdvancedMathematics   > 99,
-        student.Physics   > 99,
-        student.Stochastic  > 99,
-        student.Multimedia   < 99,
-        student.InformationTheory  < 99,
-        student.SystemAnalysis_And_Design   < 99,
-        ])
-    IS_Mat = np.array([
-     student.Calculus < 99 ,
-     student.DataBase      >90 ,
-     student.LinerAlgebra  <90 ,
-     student.Intro_to_CS    < 99 ,
-     student.Intro_to_IS    > 90 ,
-     student.Discrete_Math     < 99 ,
-     student.ObjectOriented   <99 ,
-     student.Statistics      < 99,
-     student.ProgramingLanguage  <99 ,
-     student.DifferentialEquation  <99 ,
-     student.Operations_Researsh <102 ,
-     student.DataStructure    < 99,
-     student.FileProcessing   > 99,
-     student.AdvancedMathematics < 99,
-     student.Physics    < 99,
-     student.Stochastic  < 99,
-     student.Multimedia  > 99,
-     student.InformationTheory > 99,
-     student.SystemAnalysis_And_Design > 99
-    ])
-    s2 = sum(CS_Mat.astype(int))
-    s3 = sum(IS_Mat.astype(int))
-    if (s2 == max(s2, s3)):
-        student.Department_WE = "CS"
-    else:
-        student.Department_WE = "IS"
-    form = StudentObj(instance=student)
-    form = StudentObj(request.POST, instance=student)
-    if form.is_valid():
-        form.save()
-    return request
-
-Data = pd.read_csv(r'https://raw.githubusercontent.com/abdel99073616/Data/main/datalast.csv')
-X = Data.drop(["Departments"], axis=1)
-y = Data["Departments"]
+Data = pd.read_csv('/home/abdo/PycharmProjects/EPS/Data-V1.0.csv')
+X = Data.drop(["ID" , "Department" ,"IS_Chance" , "CS_Chance"], axis=1)
+y = Data["Department"]
 
 
 @login_required(login_url='login')
@@ -161,7 +102,7 @@ def DecisionTree(request):
     student = Student.objects.get(user=pk)
     df = pd.DataFrame(list(Student.objects.all().values()))
     df = df.loc[df['user_id'] == pk]
-    df = df.drop(["user_id" , "id" , "Department_WE", "Department_DS","Department_SVM"], axis=1)
+    df = df.drop(["user_id" , "id" , "Department_DS","Department_SVM"], axis=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3,random_state=1)
     clf = DecisionTreeClassifier()
     clf = clf.fit(X_train, y_train)
@@ -181,7 +122,7 @@ def SVM(request):
     student = Student.objects.get(user=pk)
     df = pd.DataFrame(list(Student.objects.all().values()))
     df = df.loc[df['user_id'] == pk]
-    df = df.drop(["user_id", "id", "Department_WE", "Department_DS", "Department_SVM"], axis=1)
+    df = df.drop(["user_id", "id", "Department_DS", "Department_SVM"], axis=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, shuffle=True)
     svm = SVC(kernel="linear", C=0.025, random_state=101)
     svm.fit(X_train, y_train)
